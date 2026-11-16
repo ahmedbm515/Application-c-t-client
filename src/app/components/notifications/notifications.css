@@ -1,0 +1,16 @@
+.section {
+  padding: 25px;
+  border-left: 5px solid orange;
+  background: white;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  color: #174477;
+}
+
+button {
+  padding: 8px 15px;
+  cursor: pointer;
+}

@@ -1,0 +1,11 @@
+.section {
+  padding: 25px;
+  border-left: 5px solid #3277bd;
+  background: white;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: #174477;
+}

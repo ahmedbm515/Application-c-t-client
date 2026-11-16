@@ -1,0 +1,144 @@
+<section class="conference-section">
+
+  <!-- Titre -->
+  <div class="section-header">
+
+    <div class="icon">📅</div>
+
+    <div>
+      <h2>Liste des conférences à venir</h2>
+
+      <p>
+        Cliquez sur une conférence pour afficher ses détails.
+      </p>
+    </div>
+
+  </div>
+
+
+  <!-- Recherche -->
+  <div class="search-container">
+
+    <input
+      type="text"
+      [(ngModel)]="recherche"
+      placeholder="Taper le titre de la conférence"
+      class="search-input"
+    >
+
+  </div>
+
+
+  <!-- Affichage des conférences -->
+
+  @if (filteredConferences.length > 0) {
+
+    <div class="conference-container">
+
+      @for (conference of filteredConferences; track conference.id) {
+
+        <div
+          class="conference-card"
+          (click)="selectionner(conference)"
+        >
+
+          <!-- Titre en majuscules -->
+          <h3>
+            {{ conference.title | uppercase }}
+          </h3>
+
+
+          <!-- Date formatée -->
+          <p>
+            <strong>Date :</strong>
+            {{ conference.date | date:'dd/MM/yyyy' }}
+          </p>
+
+
+          <!-- Lieu -->
+          <p>
+            <strong>Lieu :</strong>
+            {{ conference.place }}
+          </p>
+
+
+          <!-- Places restantes -->
+          <p>
+            <strong>Places restantes :</strong>
+            {{ placesRestantes(conference) }}
+          </p>
+
+
+          <!-- Bouton avec couleur conditionnelle -->
+          <button
+            [ngClass]="{
+
+              'btn-green': placesRestantes(conference) >= 10,
+
+              'btn-orange':
+                placesRestantes(conference) > 0 &&
+                placesRestantes(conference) < 10,
+
+              'btn-red': placesRestantes(conference) === 0
+
+            }"
+
+            [disabled]="placesRestantes(conference) === 0"
+
+            (click)="inscrire(conference); $event.stopPropagation()"
+          >
+
+            @if (placesRestantes(conference) === 0) {
+              Complet
+            } @else {
+              S'inscrire
+            }
+
+          </button>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+  <!-- Si aucune conférence ne correspond à la recherche -->
+
+  @else if (conferences.length === 0) {
+
+    <p class="empty-message">
+      Aucune conférence enregistrée.
+    </p>
+
+  }
+
+  @else {
+
+    <p class="empty-message">
+      Aucune conférence ne correspond à votre recherche.
+    </p>
+
+  }
+
+
+  <!-- Détails de la conférence sélectionnée -->
+
+  @if (selectedConference; as conference) {
+
+    <div class="details">
+
+      <h3>Détails de la conférence</h3>
+
+      <p><strong>Titre :</strong> {{ conference.title }}</p>
+
+      <p><strong>Description :</strong> {{ conference.description }}</p>
+
+      <p><strong>Lieu :</strong> {{ conference.place }}</p>
+
+    </div>
+
+  }
+
+</section>
